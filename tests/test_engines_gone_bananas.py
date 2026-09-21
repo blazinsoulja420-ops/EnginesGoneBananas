@@ -1,0 +1,8 @@
+from engines_gone_bananas import ServiceRequest, master_mechanic_dependency, validate_request
+
+def test_service_request_requires_core_fields():
+    assert validate_request(ServiceRequest("c1","v1","no-start"))
+    assert not validate_request(ServiceRequest("","v1","no-start"))
+
+def test_master_mechanic_is_external_dependency():
+    assert master_mechanic_dependency()=="Master-Mechanic-AI"
