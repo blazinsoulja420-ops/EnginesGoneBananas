@@ -20,3 +20,13 @@ def create_diagnostic_referral(req: ServiceRequest) -> DiagnosticReferral:
     if not validate_request(req):
         raise ValueError("invalid service request")
     return DiagnosticReferral(req)
+@dataclass(frozen=True)
+class ServiceWorkflow:
+    request: ServiceRequest
+    referral: DiagnosticReferral | None = None
+
+def open_service_workflow(req: ServiceRequest, needs_diagnostics: bool = True) -> ServiceWorkflow:
+    if not validate_request(req):
+        raise ValueError("invalid service request")
+    referral = create_diagnostic_referral(req) if needs_diagnostics else None
+    return ServiceWorkflow(req, referral)
