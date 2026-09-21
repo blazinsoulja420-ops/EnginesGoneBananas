@@ -6,3 +6,7 @@ def test_service_request_requires_core_fields():
 
 def test_master_mechanic_is_external_dependency():
     assert master_mechanic_dependency()=="Master-Mechanic-AI"
+def test_diagnostic_referral_preserves_external_boundary():
+    from engines_gone_bananas import ServiceRequest, create_diagnostic_referral
+    referral=create_diagnostic_referral(ServiceRequest("c1","v1","misfire"))
+    assert referral.diagnostic_provider=="Master-Mechanic-AI"
